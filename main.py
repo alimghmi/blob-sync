@@ -1,6 +1,5 @@
 from blob import Client
 from config import logger, settings
-
 from transformer import Agent
 from utils import create_inserter_objects
 

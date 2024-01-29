@@ -1,7 +1,7 @@
 import datetime
 
-import pandas as pd
 import numpy as np
+import pandas as pd
 
 from config import logger
 
@@ -20,21 +20,20 @@ class Agent:
         logger.info("Data transformation completed successfully.")
         logger.debug(f"\n{self.dataframe}")
         return self.dataframe
-    
+
     def parse_files(self) -> None:
         try:
             for path in self.files:
                 folder, file = path.split("/")
                 isin = file.split("_")[-1].split(".")[0]
-                
+
                 if isin not in self.files_per_isin:
                     self.files_per_isin[isin] = {}
-                    
+
                 self.files_per_isin[isin][folder] = path
         except Exception as e:
             logger.error(f"Failed to parse the files list. Error: {e}")
             raise
-            
 
     def init_df(self) -> None:
         try:

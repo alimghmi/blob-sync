@@ -8,7 +8,7 @@ class Client:
     ):
         self.file_exts = self.__parse_file_exts(file_exts)
         self.container_name = container_name
-        self.cnx_string = f"DefaultEndpointsProtocol=https;AccountName={account_name};AccountKey={account_key};EndpointSuffix=core.windows.net"
+        self.cnx_string = f"DefaultEndpointsProtocol=https;AccountName={account_name};AccountKey={account_key};EndpointSuffix=core.windows.net"  # noqa: E501
         self.__init_cnx()
 
     def fetch(self) -> list:
