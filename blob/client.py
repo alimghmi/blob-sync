@@ -50,7 +50,7 @@ class Client:
 
         if "*" in file_exts or not len(file_exts):
             logger.debug(
-                "Wildcard or empty file extensions list provided; no filtering will be applied."
+                "Wildcard or empty file extensions list provided; no filtering will be applied."  # noqa: E501
             )
             return []
         else:
