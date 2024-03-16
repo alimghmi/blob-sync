@@ -10,7 +10,7 @@ class Agent:
     def __init__(self, files: list) -> None:
         self.files = files
         self.dataframe = None
-        self.files_per_isin = {}
+        self.files_per_isin = []
 
     def transform(self) -> pd.DataFrame:
         logger.info("Starting data transformation.")
@@ -24,11 +24,10 @@ class Agent:
     def parse_files(self) -> None:
         try:
             for path in self.files:
-                isin, folder = self.extract_isin_and_folder(path)
-                if isin not in self.files_per_isin:
-                    self.files_per_isin[isin] = {}
+                file, folder = self.extract_file_and_folder(path)
+                isin = file.split("_")[-1].split(".")[0]
+                self.files_per_isin.append({"isin": isin, "folder_name": folder, "file_name": file})
 
-                self.files_per_isin[isin][folder] = path
             logger.debug("File parsing completed.")
         except Exception as e:
             logger.error(f"Failed to parse the files list. Error: {e}")
@@ -37,9 +36,7 @@ class Agent:
     def init_df(self) -> None:
         try:
             logger.debug("Initializing DataFrame from parsed data.")
-            self.dataframe = pd.DataFrame(self.files_per_isin).transpose()
-            self.dataframe.reset_index(inplace=True)
-            self.dataframe.rename(columns={"index": "ISIN"}, inplace=True)
+            self.dataframe = pd.DataFrame(self.files_per_isin)
             self.dataframe.replace({np.nan: None}, inplace=True)
             logger.debug("DataFrame initialized successfully.")
         except Exception as e:
@@ -56,7 +53,6 @@ class Agent:
             raise
 
     @staticmethod
-    def extract_isin_and_folder(path):
+    def extract_file_and_folder(path):
         folder, file = path.split("/")
-        isin = file.split("_")[-1].split(".")[0]
-        return isin, folder
+        return file, folder
