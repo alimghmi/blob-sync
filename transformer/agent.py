@@ -26,7 +26,9 @@ class Agent:
             for path in self.files:
                 file, folder = self.extract_file_and_folder(path)
                 isin = file.split("_")[-1].split(".")[0]
-                self.files_per_isin.append({"isin": isin, "folder_name": folder, "file_name": file})
+                self.files_per_isin.append(
+                    {"isin": isin, "folder_name": folder, "file_name": file}
+                )
 
             logger.debug("File parsing completed.")
         except Exception as e:
