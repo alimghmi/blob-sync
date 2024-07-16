@@ -29,6 +29,3 @@ Contributions to blob sync are welcome. Please ensure you follow the guidelines:
 - Fork the repository.
 - Create a new branch for each feature or improvement.
 - Send a pull request from each feature branch to the main branch.
-  
-## License
-Include details about the license or state that the project is licensed under the MIT License.
